@@ -106,7 +106,7 @@ passworderror="Please use atleast 8 characters";
             <div className="flex items-center flex-row-reverse justify-between">
               <button
                 className={"hover:shadow-xl text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline " + (allow() ? 'bg-blue-800':'bg-blue-200' )}
-                type="submit"
+                type="button"
                 value="submit"
                 disabled={allow()}
               >
