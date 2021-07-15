@@ -1,15 +1,56 @@
 import React, { ReactEventHandler, useState } from "react";
+import yup from 'yup';
 interface props {}
 
 const Login: React.FC<props> = () => {
   const [data, setdata] = useState({ email: "", password: "" });
+  const [touched,setTouched]=useState({email:false,password:false});
+  const [submit,setsubmit]=useState(false);
   const handlechange = (event: any) => {
     const nameOfChangeInput = event.target.name;
     setdata({ ...data, [nameOfChangeInput]: event.target.value });
+    console.log(data);
   };
+  const handlesubmit = (event:any) => {
+    event.preventDefault();
+
+  }
+  const allow=()=>{
+    if (emailerror=='' && passworderror=='' ){
+      console.log(emailerror,passworderror,true);
+      return true;
+    }
+    else{
+      console.log(emailerror,passworderror,false);
+
+      return false;
+    }
+  }
+  const blur = (event: any) => {
+    const nameOfChangeInput = event.target.name;
+    setTouched({ ...touched, [nameOfChangeInput]: event.target.value });
+    console.log(data);
+  };
+  let emailerror="";
+  let passworderror="";
+  if (!data.email){
+    emailerror="Email adress required"
+  }
+  else if(!data.email.endsWith('@gmail.com')){
+    emailerror="Please enter a valid email address";
+  }
+  if (!data.password){
+    passworderror='Password Required';
+
+  }
+  else if (data.password.length<8){
+passworderror="Please use atleast 8 characters";
+  }
+
+
   return (
     <>
-      <div className="w-1/2 text-left  flex flex-col justify-center justify-items-center items-center ">
+      <div className="lg:w-1/2 text-left  flex flex-col justify-center justify-items-center items-center ">
         <div className="mt-14">
           <h1 className="text-4xl ">
             Log In to <span className="inline text-blue-700">CORK</span>
@@ -17,25 +58,36 @@ const Login: React.FC<props> = () => {
           <h2 className="mt-5">
             New Here?{" "}
             <span className="underline inline text-blue-700">
-              {" "}
               Create an account
             </span>{" "}
           </h2>
           <form
             className="bg-white rounded  pt-6 pb-8 mb-4 mt-10"
-            onSubmit={(event) => handlechange(event)}
+            onSubmit={(event) => 
+             { event.preventDefault();
+          
+
+              }}
           >
-            <div className="mb-4  border-b-2 pb-4">
+            <div className="mb-4">
+            <div className="  border-b-2 pb-4">
               <i className=" text-blue-500 text-2xl pr-4 fas fa-user"></i>
               <input
                 name="email"
                 className="outline-none border-0 "
                 id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
+                onChange={handlechange}
+                onBlur={blur}
               />
             </div>
-            <div className="mb-4  border-b-2 pb-4">
+            <div>
+              {touched.email && <div className="text-red-500">{emailerror} </div>}
+            </div>
+            </div>
+            <div className="mb-4">
+            <div className=" border-b-2 pb-4">
               <i className=" text-blue-500 text-2xl pr-4 fas fa-lock"></i>
 
               <input
@@ -44,12 +96,19 @@ const Login: React.FC<props> = () => {
                 id="password"
                 type="password"
                 placeholder="Password"
+                onChange={handlechange}
+                onBlur={blur}
               />
+            </div>
+            
+            {touched.password && <div className="text-red-500">{passworderror} </div>}
             </div>
             <div className="flex items-center flex-row-reverse justify-between">
               <button
-                className="bg-blue-700 hover:shadow:xl text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
+                className={"hover:shadow-xl text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline " + (allow() ? 'bg-blue-800':'bg-blue-200' )}
+                type="submit"
+                value="submit"
+                disabled={allow()}
               >
                 Sign In
               </button>
