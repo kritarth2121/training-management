@@ -12,10 +12,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-<Alert></Alert>
-      <Avatar/>
-      <Progress/>
-      <Button/>
+
+
         <Switch>
           <Route exact path="/" component={Dashboard  }></Route>
           <Route exact path="/login" component={Login}></Route>
