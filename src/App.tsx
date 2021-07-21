@@ -7,15 +7,16 @@ import Alert from "./Alert";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import Progress from "./Progress";
-import Button  from "./Button/Button";
+import Button from "./Button/Button";
+import Avatararray from "./Avatararray";
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-
+        <Avatararray />
 
         <Switch>
-          <Route exact path="/" component={Dashboard  }></Route>
+          <Route exact path="/" component={Dashboard}></Route>
           <Route exact path="/login" component={Login}></Route>
 
           <Route exact path="/signup" component={Signup}></Route>
