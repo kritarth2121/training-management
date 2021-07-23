@@ -13,8 +13,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Avatararray />
-
+      <Alert/>
         <Switch>
           <Route exact path="/" component={Dashboard}></Route>
           <Route exact path="/login" component={Login}></Route>

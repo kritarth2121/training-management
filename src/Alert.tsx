@@ -5,7 +5,7 @@ interface props {
 
 }
 const Alert: React.FC<props> = ({ theme,text }) => {
-    
+    const [show,setshow]=useState(true);
   const [color, setcolor] = useState("");
   useEffect(()=>{
   if (theme == "Info") {
@@ -23,7 +23,7 @@ const Alert: React.FC<props> = ({ theme,text }) => {
   return (
     <>
       <div
-        className={"bg-"+color +"-200 text-"+color +"-400 border-0 mb-4 h-11 flex items-center px-7 w-5/12 justify-between"}
+        className={"bg-"+color +"-200 text-"+color +"-400 border-0 mb-4 h-11 flex items-center px-7 w-5/12 justify-between " +(show?" ":" hidden") }
         role="alert"
       >
           <div>
@@ -36,6 +36,7 @@ const Alert: React.FC<props> = ({ theme,text }) => {
           className="close float-right"
           data-dismiss="alert"
           aria-label="Close"
+          onClick={()=>setshow(false)}
         >
             <span className="font-bold">X</span>
         </button>

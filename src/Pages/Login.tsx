@@ -1,52 +1,67 @@
 import React, { ReactEventHandler, useState } from "react";
-import yup from 'yup';
+import yup from "yup";
+import { Switch } from "@headlessui/react";
+
+import { fetchGroups, login } from "../api";
 interface props {}
 
 const Login: React.FC<props> = () => {
+  const [enabled, setEnabled] = useState(false);
+
   const [data, setdata] = useState({ email: "", password: "" });
-  const [touched,setTouched]=useState({email:false,password:false});
-  const [submit,setsubmit]=useState(false);
+  const [touched, setTouched] = useState({ email: false, password: false });
+  const [submit, setsubmit] = useState(false);
   const handlechange = (event: any) => {
     const nameOfChangeInput = event.target.name;
     setdata({ ...data, [nameOfChangeInput]: event.target.value });
     console.log(data);
   };
-  const handlesubmit = (event:any) => {
+  const handlesubmit = (event: any) => {
     event.preventDefault();
 
-  }
-  const allow=()=>{
-    if (emailerror=='' && passworderror=='' ){
-      console.log(emailerror,passworderror,true);
+    console.log("submit");
+    login(data);
+    fetchGroups();
+  };
+  const allow = () => {
+    if (emailerror == "" && passworderror == "") {
+      console.log(emailerror, passworderror, true);
       return true;
-    }
-    else{
-      console.log(emailerror,passworderror,false);
+    } else {
+      console.log(emailerror, passworderror, false);
 
       return false;
     }
+  };
+  function ValidateEmail(mail: string) {
+    if (
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        mail
+      )
+    ) {
+      return true;
+    }
+
+    return false;
   }
+  console.log(ValidateEmail(data.email));
   const blur = (event: any) => {
     const nameOfChangeInput = event.target.name;
     setTouched({ ...touched, [nameOfChangeInput]: event.target.value });
     console.log(data);
   };
-  let emailerror="";
-  let passworderror="";
-  if (!data.email){
-    emailerror="Email adress required"
+  let emailerror = "";
+  let passworderror = "";
+  if (!data.email) {
+    emailerror = "Email adress required";
+  } else if (ValidateEmail(data.email) == false) {
+    emailerror = "Please enter a valid email address";
   }
-  else if(!data.email.endsWith('@gmail.com')){
-    emailerror="Please enter a valid email address";
+  if (!data.password) {
+    passworderror = "Password Required";
+  } else if (data.password.length < 8) {
+    passworderror = "Please use atleast 8 characters";
   }
-  if (!data.password){
-    passworderror='Password Required';
-
-  }
-  else if (data.password.length<8){
-passworderror="Please use atleast 8 characters";
-  }
-
 
   return (
     <>
@@ -63,64 +78,88 @@ passworderror="Please use atleast 8 characters";
           </h2>
           <form
             className="bg-white rounded  pt-6 pb-8 mb-4 mt-10"
-            onSubmit={(event) => 
-             { event.preventDefault();
-          
-
-              }}
+            onSubmit={(event) => {
+              console.log("horha h");
+              handlesubmit(event);
+            }}
           >
             <div className="mb-4">
-            <div className="  border-b-2 pb-4">
-              <i className=" text-blue-500 text-2xl pr-4 fas fa-user"></i>
-              <input
-                name="email"
-                className="outline-none border-0 "
-                id="username"
-                type="text"
-                placeholder="Email"
-                onChange={handlechange}
-                onBlur={blur}
-              />
-            </div>
-            <div>
-              {touched.email && <div className="text-red-500">{emailerror} </div>}
-            </div>
+              <div className="  border-b-2 pb-4">
+                <i className=" text-blue-500 text-2xl pr-4 fas fa-user"></i>
+                <input
+                  name="email"
+                  className="outline-none border-0 "
+                  id="username"
+                  type="text"
+                  placeholder="Email"
+                  onChange={handlechange}
+                  onBlur={blur}
+                />
+              </div>
+              <div>
+                {touched.email && (
+                  <div className="text-red-500">{emailerror} </div>
+                )}
+              </div>
             </div>
             <div className="mb-4">
-            <div className=" border-b-2 pb-4">
-              <i className=" text-blue-500 text-2xl pr-4 fas fa-lock"></i>
+              <div className=" border-b-2 pb-4">
+                <i className=" text-blue-500 text-2xl pr-4 fas fa-lock"></i>
 
-              <input
-                name="password"
-                className="outline-none"
-                id="password"
-                type="password"
-                placeholder="Password"
-                onChange={handlechange}
-                onBlur={blur}
-              />
-            </div>
-            
-            {touched.password && <div className="text-red-500">{passworderror} </div>}
+                <input
+                  name="password"
+                  className="outline-none"
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={handlechange}
+                  onBlur={blur}
+                />
+              </div>
+
+              {touched.password && (
+                <div className="text-red-500">{passworderror} </div>
+              )}
             </div>
             <div className="flex items-center flex-row-reverse justify-between">
               <button
-                className={"hover:shadow-xl text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline " + (allow() ? 'bg-blue-800':'bg-blue-200' )}
-                type="button"
+                className={
+                  "hover:shadow-xl text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline " +
+                  (allow() ? "bg-blue-800" : "bg-blue-200")
+                }
+                type="submit"
                 value="submit"
-                disabled={allow()}
+                disabled={!allow()}
               >
                 Sign In
               </button>
 
               <div className="">
                 <div className="flex items-center cursor-pointer flex-row justify-between">
-                  <div className="mr-3 text-black ">Show Password </div>
-                  <div className="relative">
-                    <input type="checkbox" id="toggleB" className="sr-only" />
-                    <div className="block bg-blue-600 w-10 h-5 rounded-full"></div>
-                    <div className="dot absolute left-1 top-1 bg-white w-3 h-3 rounded-full transition"></div>
-                  </div>
+                  <div className="mr-3 text-black "> <div className="mt-2">
+                    <span className="font-mono">Show password </span>
+                    {/* <input
+                      type="checkbox"
+                      id="toggle-password"
+                      className=""
+                    ></input> */}
+
+                    <Switch
+                      checked={enabled}
+                      onChange={setEnabled}
+                      className={`${
+                        enabled ? "bg-blue-600" : "bg-gray-200"
+                      } relative inline-flex items-center h-5 rounded-full w-10 `}
+                    >
+                      <span className="sr-only">Enable notifications</span>
+                      <span
+                        className={`${
+                          enabled ? "translate-x-6" : "translate-x-1"
+                        } inline-block w-4 h-4 transform bg-blue-500 rounded-full`}
+                      />
+                    </Switch>
+                  </div></div>
+                  
                 </div>
               </div>
             </div>
@@ -132,7 +171,9 @@ passworderror="Please use atleast 8 characters";
         </div>
         <div className="mt-6 text-lg text-blue-800">Forgot Password?</div>
         <p className="text-center mt-10 text-sm font-medium  w-7/12 ">
-          © 2020 All Rights Reserved. <div className="inline mt-6 text-lg text-blue-600">CORK</div> is a product of Designreset.
+          © 2020 All Rights Reserved.{" "}
+          <div className="inline mt-6 text-lg text-blue-600">CORK</div> is a
+          product of Designreset.
           <div className="inline mt-6 text-lg text-blue-600">
             Cookie Preferences, Privacy,
           </div>{" "}

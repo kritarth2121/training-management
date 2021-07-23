@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 interface props{
 
 }
 const Dashboard:React.FC<props> =()=>{
+const [query,setquery]=useState('')
+
     return(
         <>
         
