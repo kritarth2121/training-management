@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 interface props {
-  theme?: string;
-  allow?: boolean;
-  children?: string;
-  border?: string;
+  theme: string;
+  allow: boolean;
+  children: string;
+  border: "Solidify" | "Outline";
+  onClick: (e: Event) => void;
 }
-const Button: React.FC<props> = ({ border, allow, children, theme }) => {
+const Button: React.FC<props> = ({ border, allow, children, theme,onClick }) => {
   let color = "";
   let textcolor = "";
 
@@ -32,6 +33,7 @@ const Button: React.FC<props> = ({ border, allow, children, theme }) => {
   }
 
   return (
+    <div>
     <button
       className={
         "hover:shadow-xl border-2   py-2 px-4 rounded focus:outline-none focus:shadow-outline " +
@@ -56,6 +58,7 @@ const Button: React.FC<props> = ({ border, allow, children, theme }) => {
     >
       {children}
     </button>
+    </div>
   );
 };
 

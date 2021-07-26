@@ -5,6 +5,10 @@ interface LoginData {
   password: string;
 }
 interface User{
+id:number;
+first_name:string;
+last_name:string;
+role:"staff"|"admin"
 
 }
 const LS_LOGIN_TOKEN="login_token";
@@ -18,7 +22,9 @@ return {...config, headers:{...config.headers, Authorization:token }}
 )
 axios.interceptors.response.use(undefined,(error)=>{
   if(error.response.data.code==9101){
+    localStorage.removeItem(LS_LOGIN_TOKEN);
 
+window.location.href="/login";
   }
 })
 interface LoginResponse{
@@ -35,6 +41,7 @@ export const login = (data: LoginData) => {
   axios.post<LoginResponse>(url,data).then((response)=>{
     console.log(response);
     localStorage.setItem("login_token",response.data.token);
+    window.location.href="/";
   })
 };
 interface GroupRequest{
@@ -43,14 +50,11 @@ query?:string;
   offset?:number;
 status?:"all-groups"|"favourite"|"archievedf"
 }
-export const fetchGroups =(data?:GroupRequest)=>{
+export const fetchGroups =(data:GroupRequest)=>{
   const url=baseurl+"/groups";
   const token=localStorage.getItem(LS_LOGIN_TOKEN);
-  axios.get(url,{params:data,headers:{Authorization:token}})
-  .then((data)=>{
-    console.log(data);
-return data;
-  })
+  return axios.get(url,{params:data,headers:{Authorization:token}})
+  
 }
 export const logout=()=>{
   localStorage.removeItem(LS_LOGIN_TOKEN);

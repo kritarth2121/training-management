@@ -1,5 +1,5 @@
 import React from "react";
-import Avatararray from "./Avatararray";
+import Avatararray from "./AvatarArray";
 import "./index.css";
 //👇 This default export determines where your story goes in the story list
 export default {

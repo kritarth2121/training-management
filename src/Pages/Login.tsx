@@ -21,7 +21,6 @@ const Login: React.FC<props> = () => {
 
     console.log("submit");
     login(data);
-    fetchGroups();
   };
   const allow = () => {
     if (emailerror == "" && passworderror == "") {
@@ -110,7 +109,7 @@ const Login: React.FC<props> = () => {
                   name="password"
                   className="outline-none"
                   id="password"
-                  type="password"
+                  type= { enabled ?"text":"password"}
                   placeholder="Password"
                   onChange={handlechange}
                   onBlur={blur}
