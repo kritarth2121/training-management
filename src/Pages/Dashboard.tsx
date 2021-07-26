@@ -14,7 +14,7 @@ const Dashboard: React.FC<props> = () => {
     setloading(true);
 
     const timeId = setTimeout(() => {
-      // After 3 seconds set the show value to false
+      // After 2 seconds set the show value to false
       setloading(false);
     }, 2000);
     fetchGroups({ status: "all-groups", query: query, offset: offset })
@@ -35,8 +35,8 @@ const Dashboard: React.FC<props> = () => {
   return (
     <>
       <Header />
-      <div className="fixed h-screen w-60 left-0 top-14 bg-gray-200">
-        <ul className="p-4 text-xl space-y-4">
+      <div className=" hidden md:block fixed h-screen w-60 left-0 top-14 bg-gray-200">
+        <ul className=" p-4 text-xl space-y-4">
           <li>Dashboard</li>
           <li>Elements</li>
           <li>Home</li>
@@ -44,7 +44,7 @@ const Dashboard: React.FC<props> = () => {
         </ul>
       </div>
 
-      <div className="mt-28 ml-64 flex flex-col justify-center justify-items-center text-center">
+      <div className="mt-28 md:ml-64 flex  justify-center justify-items-center text-center">
         <div className="  border-b-2 pb-3 w-1/2">
           <input
             name="password"
@@ -54,16 +54,16 @@ const Dashboard: React.FC<props> = () => {
             onChange={change}
           />
         </div>
-        {loading ? (
-          <div className=" h-40">
+     
+      </div>
+      {loading ? (
+          <div className=" md:ml-64 flex  justify-center h-40">
             <img className=" " src={Loading_icon} />{" "}
           </div>
         ) : (
           ""
         )}
-      </div>
-
-      <div className=" ml-60 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+      <div className=" md:ml-60 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {group.length > 0 ? (
           group.map((element: any, index: number) => {
             return (
@@ -81,7 +81,7 @@ const Dashboard: React.FC<props> = () => {
             );
           })
         ) : (
-          <div className="text-3xl font-medium"> No results</div>
+          <div className="text-3xl  font-medium"> No results</div>
         )}
       </div>
     </>
