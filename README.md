@@ -1,4 +1,5 @@
 # Getting Started with Create React App
+Deplyed here https://kritarthversion-of-codeyogi.netlify.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
