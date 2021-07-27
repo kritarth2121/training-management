@@ -4,9 +4,16 @@ interface props {
   allow: boolean;
   children: string;
   border: "Solidify" | "Outline";
-  onClick: (e: Event) => void;
+  onclick: () => void;
 }
-const Button: React.FC<props> = ({ border, allow, children, theme,onClick }) => {
+const Button: React.FC<props> = ({
+  border,
+  allow,
+  children,
+  theme,
+  onclick,
+}) => {
+  console.log(onclick);
   let color = "";
   let textcolor = "";
 
@@ -34,30 +41,31 @@ const Button: React.FC<props> = ({ border, allow, children, theme,onClick }) => 
 
   return (
     <div>
-    <button
-      className={
-        "hover:shadow-xl border-2   py-2 px-4 rounded focus:outline-none focus:shadow-outline " +
-        (allow
-          ? "bg-" +
-            color +
-            "-600 text-" +
-            textcolor +
-            "-600 border-" +
-            textcolor +
-            "-600"
-          : "bg-" +
-            color +
-            "-200 border-" +
-            textcolor +
-            "-200 text-" +
-            textcolor +
-            "-200")
-      }
-      type="button"
-      value="submit"
-    >
-      {children}
-    </button>
+      <button
+        onClick={ ()=>onclick()}
+        className={
+          "hover:shadow-xl border-2   py-2 px-4 rounded focus:outline-none focus:shadow-outline " +
+          (allow
+            ? "bg-" +
+              color +
+              "-600 text-" +
+              textcolor +
+              "-600 border-" +
+              textcolor +
+              "-600"
+            : "bg-" +
+              color +
+              "-200 border-" +
+              textcolor +
+              "-200 text-" +
+              textcolor +
+              "-200")
+        }
+        type="button"
+        value="submit"
+      >
+        {children}
+      </button>
     </div>
   );
 };

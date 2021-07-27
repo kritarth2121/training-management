@@ -21,7 +21,6 @@ const Card: React.FC<props> = ({name,description,group_image_url,creator,chatCou
             <div className="font-bold text-xl mb-2">{name}</div>
             <p className="text-gray-700 text-base">
               {description}
-              {group_image_url}
             </p>
           </div>
           <div className="px-6 pt-4 pb-2">

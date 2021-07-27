@@ -57,5 +57,8 @@ export const fetchGroups =(data:GroupRequest)=>{
   
 }
 export const logout=()=>{
+  console.log("logout")
   localStorage.removeItem(LS_LOGIN_TOKEN);
+  window.location.href="/login";
+
 }

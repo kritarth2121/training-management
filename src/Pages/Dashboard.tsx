@@ -54,15 +54,14 @@ const Dashboard: React.FC<props> = () => {
             onChange={change}
           />
         </div>
-     
       </div>
       {loading ? (
-          <div className=" md:ml-64 flex  justify-center h-40">
-            <img className=" " src={Loading_icon} />{" "}
-          </div>
-        ) : (
-          ""
-        )}
+        <div className=" md:ml-64 flex  justify-center h-40">
+          <img className=" " src={Loading_icon} />{" "}
+        </div>
+      ) : (
+        ""
+      )}
       <div className=" md:ml-60 p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {group.length > 0 ? (
           group.map((element: any, index: number) => {

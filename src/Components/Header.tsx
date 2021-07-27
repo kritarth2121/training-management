@@ -1,4 +1,6 @@
 import React from "react";
+import { logout } from "../api";
+import Button from "../Button/Button";
 interface props{
 
 }
@@ -8,7 +10,7 @@ const Header:React.FC<props> =()=>{
         <div className="fixed flex items-center top-0 h-14 w-full bg-black flex-row">
             <img className="h-10 w-20" src="https://designreset.com/cork/ltr/demo4/assets/img/logo.svg"></img>
             <div className="text-white text-2xl font-medium">CORK</div>
-            <div className="absolute right-10 space-x-4 flex flex-row">
+            <div className="absolute right-10 space-x-4 flex flex-row items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -40,6 +42,7 @@ const Header:React.FC<props> =()=>{
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
+          <Button border="Solidify"  theme="Primary" allow={true} onclick={logout} children ="Logout"/>
         </div>
         </div>
         

@@ -7,7 +7,11 @@ export default {
   component: Avatar,
   argTypes: {
     status: {
-      options: ['online','offline'],
+      options: ["online", "offline"],
+      control: { type: "select" },
+    },
+    size: {
+      options: ["bigger", "medium", "smaller"],
       control: { type: "select" },
     },
   },
@@ -15,13 +19,8 @@ export default {
 
 //👇 We create a “template” of how args map to rendering
 export const Template = (args: any) => <Avatar {...args} />;
-Template.args={
-    //children:"Sign in",
-    //className:"",
-    //disabled:false,
-    //allow:false,
-    //type:"submit"
-
+Template.args = {
+  image: "https://designreset.com/cork/ltr/demo4/assets/img/profile-12.jpeg",
+  status: "undefined",
+  size: "large",
 };
-
- 

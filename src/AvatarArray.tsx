@@ -2,7 +2,7 @@ import React from "react";
 interface props {
   List_of_images?: Array<string>;
 }
-const Avatararray: React.FC<props> = ({ List_of_images }) => {
+const AvatarArray: React.FC<props> = ({ List_of_images }) => {
   if (List_of_images && List_of_images.length > 0) {
     let s = List_of_images.length - 4;
   }
@@ -39,8 +39,8 @@ const Avatararray: React.FC<props> = ({ List_of_images }) => {
 const RandomImageUrl =
   "https://designreset.com/cork/ltr/demo4/assets/img/profile-12.jpeg";
 
-Avatararray.defaultProps = {
+AvatarArray.defaultProps = {
   List_of_images: [RandomImageUrl, RandomImageUrl, RandomImageUrl],
 };
 
-export default React.memo(Avatararray);
+export default React.memo(AvatarArray);

@@ -1,14 +1,15 @@
 import React from "react";
-import Avatararray from "./AvatarArray";
+import AvatarArray from "./AvatarArray";
 import "./index.css";
 //👇 This default export determines where your story goes in the story list
 export default {
   title: "Avatararray",
-  component: Avatararray,
+  component: AvatarArray,
+ 
 };
 
 //👇 We create a “template” of how args map to rendering
-export const Template = (args: any) => <Avatararray {...args} />;
+export const Template = (args: any) => <AvatarArray {...args} />;
 Template.args = {
   //children:"Sign in",
   //className:"",

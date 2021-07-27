@@ -1,10 +1,9 @@
-import React from "react";
 import "./App.css";
-import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import { BrowserRouter, Switch, Route, Link,Redirect } from "react-router-dom";
-
+import { lazy, Suspense } from "react";
+const  Dashboard =lazy(()=> import("./Pages/Dashboard"));
 function App() {
   const token=localStorage.getItem("login_token");
   return (
@@ -17,7 +16,7 @@ function App() {
           </Route>
           <Route  path={["/dashboard","/login" ]} exact>
 
-            {token ? <Dashboard/> : <Login/>}
+            {token ? <Suspense fallback="<div></div>"><Dashboard/> </Suspense> : <Login/>}
           </Route>
 
           <Route exact path="/signup" component={Signup}></Route>
