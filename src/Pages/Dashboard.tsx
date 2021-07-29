@@ -1,9 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { fetchGroups, logout } from "../api";
-import Button from "../Button/Button";
+import Button from "../Components/Button/Button";
 import Card from "../Components/Card";
 import Header from "../Components/Header";
-import Loading_icon from "../Loading_icon.gif";
+import Loading_icon from "../Components/Loading_icon.gif";
+import Sidebar from "../Components/Sidebar";
 interface props {}
 const Dashboard: React.FC<props> = () => {
   const [query, setQuery] = useState("");
@@ -35,15 +36,8 @@ const Dashboard: React.FC<props> = () => {
   return (
     <>
       <Header />
-      <div className=" hidden md:block fixed h-screen w-60 left-0 top-14 bg-gray-200">
-        <ul className=" p-4 text-xl space-y-4">
-          <li>Dashboard</li>
-          <li>Elements</li>
-          <li>Home</li>
-          <li>Components</li>
-        </ul>
-      </div>
 
+      <Sidebar />
       <div className="mt-28 md:ml-64 flex  justify-center justify-items-center text-center">
         <div className="  border-b-2 pb-3 w-1/2">
           <input

@@ -1,13 +1,15 @@
-import React, { ReactEventHandler, useState } from "react";
+import React, { ReactEventHandler, useContext, useState } from "react";
 import yup from "yup";
 import { Switch } from "@headlessui/react";
 
 import { fetchGroups, login } from "../api";
+import { setupMaster } from "cluster";
+import AppContext from "../Appcontext";
 interface props {}
 
 const Login: React.FC<props> = () => {
   const [enabled, setEnabled] = useState(false);
-
+  const {setUser} = useContext(AppContext);
   const [data, setdata] = useState({ email: "", password: "" });
   const [touched, setTouched] = useState({ email: false, password: false });
   const [submit, setsubmit] = useState(false);
@@ -20,7 +22,7 @@ const Login: React.FC<props> = () => {
     event.preventDefault();
 
     console.log("submit");
-    login(data);
+    login(data).then((user:any) => setUser(user));
   };
   const allow = () => {
     if (emailerror == "" && passworderror == "") {
@@ -109,7 +111,7 @@ const Login: React.FC<props> = () => {
                   name="password"
                   className="outline-none"
                   id="password"
-                  type= { enabled ?"text":"password"}
+                  type={enabled ? "text" : "password"}
                   placeholder="Password"
                   onChange={handlechange}
                   onBlur={blur}
@@ -135,30 +137,32 @@ const Login: React.FC<props> = () => {
 
               <div className="">
                 <div className="flex items-center cursor-pointer flex-row justify-between">
-                  <div className="mr-3 text-black "> <div className="mt-2">
-                    <span className="font-mono">Show password </span>
-                    {/* <input
+                  <div className="mr-3 text-black ">
+                    {" "}
+                    <div className="mt-2">
+                      <span className="font-mono">Show password </span>
+                      {/* <input
                       type="checkbox"
                       id="toggle-password"
                       className=""
                     ></input> */}
 
-                    <Switch
-                      checked={enabled}
-                      onChange={setEnabled}
-                      className={`${
-                        enabled ? "bg-blue-600" : "bg-gray-200"
-                      } relative inline-flex items-center h-5 rounded-full w-10 `}
-                    >
-                      <span className="sr-only">Enable notifications</span>
-                      <span
+                      <Switch
+                        checked={enabled}
+                        onChange={setEnabled}
                         className={`${
-                          enabled ? "translate-x-6" : "translate-x-1"
-                        } inline-block w-4 h-4 transform bg-blue-500 rounded-full`}
-                      />
-                    </Switch>
-                  </div></div>
-                  
+                          enabled ? "bg-blue-600" : "bg-gray-200"
+                        } relative inline-flex items-center h-5 rounded-full w-10 `}
+                      >
+                        <span className="sr-only">Enable notifications</span>
+                        <span
+                          className={`${
+                            enabled ? "translate-x-6" : "translate-x-1"
+                          } inline-block w-4 h-4 transform bg-blue-500 rounded-full`}
+                        />
+                      </Switch>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

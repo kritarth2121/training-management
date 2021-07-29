@@ -1,16 +1,11 @@
 import axios from "axios";
+import { User } from "./models/User";
 
 interface LoginData {
   email: string;
   password: string;
 }
-interface User{
-id:number;
-first_name:string;
-last_name:string;
-role:"staff"|"admin"
 
-}
 const LS_LOGIN_TOKEN="login_token";
 axios.interceptors.request.use((config) =>{
 const token=localStorage.getItem(LS_LOGIN_TOKEN);
@@ -38,10 +33,12 @@ const baseurl = "https://api-dev.domecompass.com";
 export const login = (data: LoginData) => {
   const url = baseurl + "/login";
   console.log(data,555);
-  axios.post<LoginResponse>(url,data).then((response)=>{
+  return axios.post<LoginResponse>(url,data).then((response)=>{
     console.log(response);
     localStorage.setItem("login_token",response.data.token);
     window.location.href="/";
+    return response.data.user
+
   })
 };
 interface GroupRequest{

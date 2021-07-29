@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./Pages/Login";
+import Login from "../Pages/Login";
 import "./index.css";
 //👇 This default export determines where your story goes in the story list
 export default {
@@ -9,13 +9,10 @@ export default {
 
 //👇 We create a “template” of how args map to rendering
 export const Template = (args: any) => <Login {...args} />;
-Template.args={
-    //children:"Sign in",
-    //className:"",
-    //disabled:false,
-    //allow:false,
-    //type:"submit"
-
+Template.args = {
+  //children:"Sign in",
+  //className:"",
+  //disabled:false,
+  //allow:false,
+  //type:"submit"
 };
-
- 
