@@ -1,27 +1,38 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { fetchGroups, logout } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchGroups } from "../api/group";
 import Button from "../Components/Button/Button";
 import Card from "../Components/Card";
 import Header from "../Components/Header";
 import Loading_icon from "../Components/Loading_icon.gif";
 import Sidebar from "../Components/Sidebar";
+import { User } from "../models/User";
+import { AppState } from "../store";
 interface props {}
 const Dashboard: React.FC<props> = () => {
-  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const query = useSelector<AppState, string>((state) => state.groupQuery);
   const [loading, setloading] = useState(false);
-  const [group, setGroup] = useState<any>([]);
   const [offset, setOffset] = useState(0);
+  const group:any= useSelector<AppState>((state) => {
+    const groupIds = state.groupQueryMap[state.groupQuery] || [];
+    const groups = groupIds.map((id: any) => state.groups[id]);
+    return groups;
+  });
+  console.log(group, "main");
   useEffect(() => {
     setloading(true);
-
     const timeId = setTimeout(() => {
-      // After 2 seconds set the show value to false
       setloading(false);
     }, 2000);
     fetchGroups({ status: "all-groups", query: query, offset: offset })
       .then((response) => {
-        setGroup(response.data.data);
-        console.log(response.data.data);
+
+        dispatch({
+          type: "groups/query_completed",
+          payload: { groups: response, query },
+        });
+        //setGroup(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -30,9 +41,9 @@ const Dashboard: React.FC<props> = () => {
   var value = "";
   const change = (e: any) => {
     value = e.currentTarget.value;
-    setQuery(value);
+    dispatch({ type: "groups/query", payload: value });
   };
-
+  console.log(group);
   return (
     <>
       <Header />
@@ -63,7 +74,7 @@ const Dashboard: React.FC<props> = () => {
               <>
                 <Card
                   id={element.id}
-                  creator={element.creator.first_name}
+                  creator={" "}
                   chatCount={element.chatCount}
                   key={element.id}
                   group_image_url={element.group_image_url}

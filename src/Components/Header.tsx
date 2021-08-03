@@ -1,6 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { logout } from "../api";
+import { logout } from "../api/auth";
 import Button from "./Button/Button";
 interface props {}
 function DeleteInactiveIcon(props: any) {

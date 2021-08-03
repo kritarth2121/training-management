@@ -1,19 +1,24 @@
-import React, { ReactEventHandler, useContext, useState } from "react";
+import React, {
+  ReactEventHandler,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import yup from "yup";
 import { Switch } from "@headlessui/react";
 
-import { fetchGroups, login } from "../api";
 import { setupMaster } from "cluster";
-import AppContext from "../Appcontext";
+import { login } from "../api/auth";
 interface props {}
 
 const Login: React.FC<props> = () => {
   const [enabled, setEnabled] = useState(false);
-  const {setUser} = useContext(AppContext);
   const [data, setdata] = useState({ email: "", password: "" });
   const [touched, setTouched] = useState({ email: false, password: false });
   const [submit, setsubmit] = useState(false);
+  useEffect(() => {}, []);
   const handlechange = (event: any) => {
+    console.log("handlechange");
     const nameOfChangeInput = event.target.name;
     setdata({ ...data, [nameOfChangeInput]: event.target.value });
     console.log(data);
@@ -22,7 +27,9 @@ const Login: React.FC<props> = () => {
     event.preventDefault();
 
     console.log("submit");
-    login(data).then((user:any) => setUser(user));
+    login(data).then((user: any) =>
+      dispatch({ type: "me/login", payload: user })
+    );
   };
   const allow = () => {
     if (emailerror == "" && passworderror == "") {
@@ -199,3 +206,6 @@ const Login: React.FC<props> = () => {
 Login.defaultProps = {};
 
 export default React.memo(Login);
+function dispatch(arg0: { type: string; payload: any }): any {
+  throw new Error("Function not implemented.");
+}

@@ -1,8 +1,8 @@
 import React, { ReactEventHandler, useState } from "react";
 import yup from "yup";
 import { Switch } from "@headlessui/react";
+import { login } from "../api/auth";
 
-import { fetchGroups, login } from "../api";
 interface props {}
 
 const Signup: React.FC<props> = () => {
