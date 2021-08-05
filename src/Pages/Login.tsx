@@ -1,21 +1,19 @@
 import React, {
-  ReactEventHandler,
-  useContext,
+
   useEffect,
   useState,
 } from "react";
-import yup from "yup";
 import { Switch } from "@headlessui/react";
 
-import { setupMaster } from "cluster";
 import { login } from "../api/auth";
+import { authaction } from "../actions/auth.actions";
 interface props {}
 
 const Login: React.FC<props> = () => {
   const [enabled, setEnabled] = useState(false);
   const [data, setdata] = useState({ email: "", password: "" });
   const [touched, setTouched] = useState({ email: false, password: false });
-  const [submit, setsubmit] = useState(false);
+  //const [submit, setsubmit] = useState(false);
   useEffect(() => {}, []);
   const handlechange = (event: any) => {
     console.log("handlechange");
@@ -28,11 +26,12 @@ const Login: React.FC<props> = () => {
 
     console.log("submit");
     login(data).then((user: any) =>
-      dispatch({ type: "me/login", payload: user })
+      //dispatch({ type: "me/login", payload: user })
+      authaction.login(user)
     );
   };
   const allow = () => {
-    if (emailerror == "" && passworderror == "") {
+    if (emailerror === "" && passworderror === "") {
       console.log(emailerror, passworderror, true);
       return true;
     } else {

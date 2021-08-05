@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../store";
 interface props {}
 const Sidebar: React.FC<props> = () => {
-  const user=useSelector<AppState>((state)=>state.me);
+  const user=useSelector<AppState>((state)=>state.user.me);
   return (
     <>
       <div className=" hidden md:block fixed h-screen w-60 left-0 top-14 bg-gray-200">

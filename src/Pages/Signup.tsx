@@ -1,5 +1,4 @@
-import React, { ReactEventHandler, useState } from "react";
-import yup from "yup";
+import React, {  useState } from "react";
 import { Switch } from "@headlessui/react";
 import { login } from "../api/auth";
 
@@ -10,7 +9,6 @@ const Signup: React.FC<props> = () => {
 
   const [data, setdata] = useState({ email: "", password: "" });
   const [touched, setTouched] = useState({ email: false, password: false });
-  const [submit, setsubmit] = useState(false);
   const handlechange = (event: any) => {
     const nameOfChangeInput = event.target.name;
     setdata({ ...data, [nameOfChangeInput]: event.target.value });

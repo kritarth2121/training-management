@@ -1,38 +1,39 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { groupaction } from "../actions/group.actions";
 import { fetchGroups } from "../api/group";
-import Button from "../Components/Button/Button";
 import Card from "../Components/Card";
 import Header from "../Components/Header";
 import Loading_icon from "../Components/Loading_icon.gif";
 import Sidebar from "../Components/Sidebar";
-import { User } from "../models/User";
-import { AppState } from "../store";
+import { AppState, useAppSelector } from "../store";
 interface props {}
 const Dashboard: React.FC<props> = () => {
   const dispatch = useDispatch();
-  const query = useSelector<AppState, string>((state) => state.groupQuery);
+
+  const query = useAppSelector((state) => state.group.groupQuery);
   const [loading, setloading] = useState(false);
   const [offset, setOffset] = useState(0);
-  const group:any= useSelector<AppState>((state) => {
-    const groupIds = state.groupQueryMap[state.groupQuery] || [];
-    const groups = groupIds.map((id: any) => state.groups[id]);
+  const group: any = useAppSelector((state) => {
+    const groupIds = state.group.groupQueryMap[state.group.groupQuery] || [];
+    const groups = groupIds.map((id: any) => state.group.groups[id]);
     return groups;
   });
   console.log(group, "main");
   useEffect(() => {
     setloading(true);
-    const timeId = setTimeout(() => {
+    setTimeout(() => {
       setloading(false);
     }, 2000);
     fetchGroups({ status: "all-groups", query: query, offset: offset })
       .then((response) => {
-
-        dispatch({
-          type: "groups/query_completed",
-          payload: { groups: response, query },
-        });
+// dispatch({
+        //   type: "groups/query_completed",
+        //   payload: { groups: response, query },
+        // });
         //setGroup(response.data.data);
+        console.log(response,"ytree");
+        groupaction.groupsfetch( response.data, query) // eslint-disable-line react-hooks/exhaustive-deps
       })
       .catch((error) => {
         console.log(error);
@@ -41,7 +42,8 @@ const Dashboard: React.FC<props> = () => {
   var value = "";
   const change = (e: any) => {
     value = e.currentTarget.value;
-    dispatch({ type: "groups/query", payload: value });
+    groupaction.groupquery(value)
+    //dispatch({ type: "groups/query", payload: value });
   };
   console.log(group);
   return (

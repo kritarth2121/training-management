@@ -7,11 +7,12 @@ import ProfilePage from "./Pages/ProfilePage";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "./store";
 import { me } from "./api/auth";
+import { authaction } from "./actions/auth.actions";
 const Dashboard = lazy(() => import("./Pages/Dashboard"));
 function App() {
   const dispatch = useDispatch();
   const token = localStorage.getItem("login_token");
-  const user = useSelector<AppState>((state) => state.me);
+  const user = useSelector<AppState>((state) => state.user.me);
   console.log(user, token);
 useEffect(() => {
     setTimeout(() => {
@@ -20,7 +21,8 @@ useEffect(() => {
     if (!token) {
       return;
     }
-    me().then((u) => dispatch({ type: "me/fetch", payload: u }));
+    me().then((u) => authaction.login(u));
+    
   }, []);
 
   return (
