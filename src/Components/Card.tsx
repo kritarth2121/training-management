@@ -13,8 +13,8 @@ const Card: React.FC<props> = ({name,description,group_image_url,creator,chatCou
         group_image_url="https://source.unsplash.com/random/500*300";
     }
   return (
-    <>
-      <div className="p-10">
+    < a href={"/groups/"+id}>
+      <div className="p-10" >
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
           <img className="w-full h-64" src={group_image_url }  alt="Mountain" onError={(e:any)=>{ e.target.src="https://source.unsplash.com/random/500*300"}}/>
           <div className="px-6 py-4">
@@ -36,7 +36,7 @@ const Card: React.FC<props> = ({name,description,group_image_url,creator,chatCou
           </div>
         </div>
       </div>
-    </>
+    </a>
   );
 };
 

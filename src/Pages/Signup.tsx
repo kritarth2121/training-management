@@ -5,8 +5,8 @@ import { login } from "../api/auth";
 interface props {}
 
 const Signup: React.FC<props> = () => {
-  const [enabled, setEnabled] = useState(false);
 
+  const [enabled, setEnabled] = useState(false);
   const [data, setdata] = useState({ email: "", password: "" });
   const [touched, setTouched] = useState({ email: false, password: false });
   const handlechange = (event: any) => {
@@ -14,9 +14,9 @@ const Signup: React.FC<props> = () => {
     setdata({ ...data, [nameOfChangeInput]: event.target.value });
     console.log(data);
   };
+
   const handlesubmit = (event: any) => {
     event.preventDefault();
-
     console.log("submit");
     login(data);
   };
@@ -51,7 +51,7 @@ const Signup: React.FC<props> = () => {
   let passworderror = "";
   if (!data.email) {
     emailerror = "Email adress required";
-  } else if (ValidateEmail(data.email) == false) {
+  } else if (ValidateEmail(data.email) === false) {
     emailerror = "Please enter a valid email address";
   }
   if (!data.password) {

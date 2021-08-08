@@ -1,19 +1,21 @@
-import { User } from "../models/User";
 import { AnyAction } from "redux";
 import { ME_FETCH, ME_LOGIN } from "../actions/action.constants";
+import { EntityState } from "./entity.reducer";
 
-export interface UserState {
-  me?: User;
+export interface UserState extends EntityState{
+  
 }
 const initialState: UserState = {
-  me: undefined,
+  byID:{}
 };
 
 export const userReducer = (state = initialState, action: AnyAction) => {
+  const user=action.payload
   switch (action.type) {
+    
     case ME_FETCH:
     case ME_LOGIN:
-      return { ...state, me: action.payload };
+      return { ...state, byID:{...state.byID ,[user.id] :user } };// eslint-disable-line
       default:
         return state;
   }

@@ -122,27 +122,32 @@ const Header: React.FC<props> = () => {
                       )}
                     </Menu.Item>
                     <Menu.Item>
+                      
                       {({ active }) => (
+                        <a href="/groups">
                         <button
                           className={`${
                             active ? "bg-blue-500 font-medium" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                         >
-                          Duplicate
+                          Groups
                         </button>
+                        </a>
                       )}
                     </Menu.Item>
                   </div>
                   <div className="px-1 py-1">
                     <Menu.Item>
                       {({ active }) => (
+                        <a href="/">
                         <button
                           className={`${
                             active ? "bg-blue-500 font-medium" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                         >
-                          Archive
+                          Dashboard
                         </button>
+                        </a>
                       )}
                     </Menu.Item>
                     <Menu.Item>

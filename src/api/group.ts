@@ -13,3 +13,10 @@ export const fetchGroups =(data:GroupRequest)=>{
     offset?:number;
   status?:"all-groups"|"favourite"|"archievedf"
   }
+
+  export const fetchGroupsid =(data:{id:number})=>{
+    const url=baseurl+"/groups/"+ data.id ;
+    const token=localStorage.getItem(LS_LOGIN_TOKEN);
+    return axios.get(url,{headers:{Authorization:token}})
+    
+  }
