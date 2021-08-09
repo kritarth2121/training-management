@@ -6,7 +6,7 @@ import { ME_FETCH, ME_LOGIN } from "./action.constants";
 export const mefetch =(u:User)=> ({type:ME_FETCH, payload:u})
 export const melogin =(u:User)=> ({type:ME_LOGIN, payload:u})
 
-export const authaction=bindActionCreators({
+export const authAction=bindActionCreators({
     fetch:mefetch,
     login:melogin
 },store.dispatch)

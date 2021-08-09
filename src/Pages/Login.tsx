@@ -6,7 +6,7 @@ import React, {
 import { Switch } from "@headlessui/react";
 
 import { login } from "../api/auth";
-import { authaction } from "../actions/auth.actions";
+import { authAction } from "../actions/auth.actions";
 interface props {}
 
 const Login: React.FC<props> = () => {
@@ -27,7 +27,7 @@ const Login: React.FC<props> = () => {
     console.log("submit");
     login(data).then((user: any) =>
       //dispatch({ type: "me/login", payload: user })
-      authaction.login(user)
+      authAction.login(user)
     );
   };
   const allow = () => {
@@ -205,6 +205,4 @@ const Login: React.FC<props> = () => {
 Login.defaultProps = {};
 
 export default React.memo(Login);
-function dispatch(arg0: { type: string; payload: any }): any {
-  throw new Error("Function not implemented.");
-}
+

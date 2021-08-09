@@ -4,13 +4,11 @@ import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import { useLocation } from "react-router";
 import { Group } from "../models/Group";
-
 interface props {}
-
 const DetailOFGroup: React.FC<props> = () => {
     const path = useLocation();
-    var p = path.pathname;
-    var id = p.substr(p.lastIndexOf("/") + 1);
+    var pathname = path.pathname;
+    var id = pathname.substr(pathname.lastIndexOf("/") + 1);
     const [data, setdata] = useState<Group>();
     useEffect(() => {
         fetchGroupsid({ id: parseInt(id) })
@@ -24,8 +22,8 @@ const DetailOFGroup: React.FC<props> = () => {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
-console.log(data,data&&data?.is_private);
+    }, [id]);
+    console.log(data, data && data?.is_private);
     return (
         <>
             <Header />
@@ -53,9 +51,10 @@ console.log(data,data&&data?.is_private);
                             {data?.description}
                         </p>
                         <p className="w-full pb-4 text-md tracking-wide leading-tight ">
-                            <span className="font-bold">Chat Count</span> {data?.chatCount}
+                            <span className="font-bold">Chat Count</span>{" "}
+                            {data?.chatCount}
                         </p>
-                        
+
                         <div className="rounded w-full ">
                             <div className="rounded-lg e   ">
                                 <p className="m-auto inset-0 text-lg  leading-normal   text-black underline  font-bold">
@@ -64,7 +63,7 @@ console.log(data,data&&data?.is_private);
                             </div>
                             <div className="rounded-lg e   ">
                                 <p className="m-auto inset-0 text-md font-medium leading-normal   py-1">
-                                    Id : {data?.creator.id}
+                                    Id : {data?.creator?.id}
                                 </p>
                             </div>
                             <div className=" rounded-lg    ">
@@ -86,12 +85,12 @@ console.log(data,data&&data?.is_private);
                             </div>
                             <div className="rounded-lg e   ">
                                 <p className="m-auto inset-0 text-md font-medium leading-normal   py-1">
-                                     Code : {data?.state?.state_code}
+                                    Code : {data?.state?.state_code}
                                 </p>
                             </div>
                             <div className=" rounded-lg    ">
                                 <p className="m-auto inset-0 text-md font-medium leading-normal    py-1">
-                                     Title: {data?.state?.title}
+                                    Title: {data?.state?.title}
                                 </p>
                             </div>
                             <div className="rounded-lg   ">

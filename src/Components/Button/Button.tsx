@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 interface props {
-  theme: string;
-  allow: boolean;
-  children: string;
-  border: "Solidify" | "Outline";
-  onclick: () => void;
+  theme?: string;
+  allow?: boolean;
+  children?: string;
+  border?: "Solidify" | "Outline";
+  onclick?: () => void;
+  type?:"submit" | "button" | "reset" | undefined
 }
 const Button: React.FC<props> = ({
   border,
@@ -12,6 +13,7 @@ const Button: React.FC<props> = ({
   children,
   theme,
   onclick,
+  type
 }) => {
   console.log(onclick);
   let color = "";
@@ -41,8 +43,8 @@ const Button: React.FC<props> = ({
 
   return (
     <div>
-      <button
-        onClick={ ()=>onclick()}
+      <button type={type}
+        onClick={ ()=>onclick && onclick()}
         className={
           "hover:shadow-xl border-2   py-2 px-4 rounded focus:outline-none focus:shadow-outline " +
           (allow
@@ -61,8 +63,7 @@ const Button: React.FC<props> = ({
               textcolor +
               "-200")
         }
-        type="button"
-        value="submit"
+        // eslint-disable-next-line react/jsx-no-duplicate-props
       >
         {children}
       </button>
@@ -75,6 +76,7 @@ Button.defaultProps = {
   border: "Solidify",
   allow: true,
   children: "Sign In",
+  type:"submit",
 };
 
 export default React.memo(Button);

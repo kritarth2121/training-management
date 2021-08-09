@@ -4,14 +4,17 @@ import { Group } from "../models/Group";
 export interface GroupState {
     groups: Group[];
     groupQuery: string;
+    loadingQuery:{[query:string]:boolean};
     groupIds: { [id: number]: Group };
     groupQueryMap: { [query: string]: number[] };
 }
 const initialState: GroupState = {
+    loadingQuery:{},
     groups: [],
     groupQuery: "",
     groupIds: {},
     groupQueryMap: {},
+
 };
 export const groupReducer = (state = initialState, action: AnyAction) => {
     switch (action.type) {

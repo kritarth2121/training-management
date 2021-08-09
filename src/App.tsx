@@ -7,7 +7,7 @@ import ProfilePage from "./Pages/ProfilePage";
 import { useDispatch } from "react-redux";
 import {  useAppSelector } from "./store";
 import { me } from "./api/auth";
-import { authaction } from "./actions/auth.actions";
+import { authAction } from "./actions/auth.actions";
 import { meSelector } from "./selectors/auth.selectors";
 import NotFound from "./Pages/Notfound";
 import detailOFGroup from "./Pages/detailOFGroup";
@@ -17,7 +17,7 @@ function App() {
     const dispatch = useDispatch();
     const token = localStorage.getItem("login_token");
     const user = useAppSelector(meSelector);
-    console.log(user, token);
+    console.log(user, token,111);
     useEffect(() => {
         setTimeout(() => {
             dispatch({ type: "sidebar", payload: false });
@@ -25,7 +25,7 @@ function App() {
         if (!token) {
             return;
         }
-        me().then((u) => authaction.login(u));
+        me().then((u) => authAction.login(u));
     }, []);
 
     return (

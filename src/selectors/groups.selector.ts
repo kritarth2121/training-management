@@ -44,3 +44,6 @@ export const groupSelector =createSelector([groupQuerySelector,groupByIdSelector
     const groups=groupIds.map((id)=>byId[id]);
     return groups;
     })
+
+// const groupLoadingQuerySeletor = createSelector([groupStateSelector],(groupState)=>(query,loadingMap)=>loadingMap[query] );
+// const groupLoadingSelector=createSelector([groupStateSelector])

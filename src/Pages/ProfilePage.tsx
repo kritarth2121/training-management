@@ -1,121 +1,233 @@
-import React, { useContext } from "react";
-import AppContext from "../Appcontext";
+import { useFormik } from "formik";
+import { FC, memo, useEffect, useState } from "react";
+import * as yup from "yup";
+import { useHistory } from "react-router-dom";
+import { useAppSelector } from "../store";
+import { meSelector } from "../selectors/auth.selectors";
+import { User } from "../models/User";
+import { me, updateUser } from "../api/auth";
+import Avatar from "../Components/Avatar";
 import Button from "../Components/Button/Button";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
-interface props {}
-const ProfilePage: React.FC<props> = () => {
-    const user = useContext(AppContext);
-    console.log(user);
+interface Props {}
+
+const ProfilePage: FC<Props> = (props) => {
+    const user = useAppSelector(meSelector);
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const history = useHistory();
+    // first_name?: string;
+    // middle_name?: string;
+    // last_name?: string;
+    // profile_pic_url?: string;
+    // phone_number?: string;
+    // alternate_phone_number?: string;
+    // email?: string;
+    // gender?: PeopleGender;
+    // birth_year?: string;
+    // birth_month?: string;
+    // birth_date?: string;
+    // death_year?: string;
+    // death_month?: string;
+    // death_date?: string;
+    // party?: string;
+    // home_state_code?: string;
+    // education?: string;
+    // hometown?: string;
+
+     
+      const [data, setdata] = useState<User>({
+        profile_pic_url: user && user.profile_pic_url,
+        first_name:  user && user.first_name,
+        middle_name:  user && user.middle_name,
+        last_name:  user && user.last_name,
+        phone_number:  user && user.phone_number,
+        birth_date:  user && user.birth_date,
+        birth_month:  user && user.birth_month,
+        birth_year:  user && user.birth_year,
+        email: user && user.email,
+        hometown:  user && user.hometown,
+    });
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+
+    console.log("submit");
+    updateUser(data).then(() => history.push("/profile"));
+  };
+    useEffect(()=>{
+        setdata({
+          profile_pic_url: user && user.profile_pic_url,
+          first_name:  user && user.first_name,
+          middle_name:  user && user.middle_name,
+          last_name:  user && user.last_name,
+          phone_number:  user && user.phone_number,
+          birth_date:  user && user.birth_date,
+          birth_month:  user && user.birth_month,
+          birth_year:  user && user.birth_year,
+          email: user && user.email,
+          hometown:  user && user.hometown,
+      })
+        
+    },[user])
+    const reset=()=>{
+        setdata({
+            profile_pic_url: user && user.profile_pic_url,
+            first_name:  user && user.first_name,
+            middle_name:  user && user.middle_name,
+            last_name:  user && user.last_name,
+            phone_number:  user && user.phone_number,
+            birth_date:  user && user.birth_date,
+            birth_month:  user && user.birth_month,
+            birth_year:  user && user.birth_year,
+            email: user && user.email,
+            hometown:  user && user.hometown,
+        })
+    }
+    const handlechange = (event: any) => {
+        console.log("handlechange");
+        const nameOfChangeInput = event.target.name;
+        //eslint-disable-next-line
+        setdata({ ...data, [nameOfChangeInput]: event.target.value });
+        console.log(data,111111111);
+    };
+    console.log(user&&user.profile_pic_url,"profile",data.profile_pic_url);
+
+    if (user === undefined) {
+        return <></>;
+    }
+
     return (
-        <div className="bg-gray-300 absolute w-full top-0">
+        <>
+            <Header></Header>
             <Sidebar />
-            <Header />
-
-            <div className=" h-full  md:ml-60 ">
-                <div className="  bg-white   my-20 mx-5 p-7">
-                    <div className="font-medium mb-10">GENERAL INFORMATION</div>
-                    <form>
-                        <div className="flex flex-col md:flex-row justify-evenly justify-items-center">
-                            <div>
+            <div className="bg-gray-300 md:ml-64 p-2 mt-20">
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                    <div className="bg-white rounded m-3 p-5">
+                        <h3 className="font-semibold w-full pr-12 ">
+                            GENERAL INFORMATION
+                        </h3>
+                        <div className="flex flex-col md:flex-row justify-evenly">
+                            <div className="flex  items-center flex-col ">
                                 <img
-                                    className="h-28 w-28 rounded-lg"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-8SJZalEzsMbwlSZY4chR62sCdrrNcTYoKA&usqp=CAU"
+                                    className="w-52 "
+                                    alt="profile"
+                                    src={user.profile_pic_url}
                                 />
-                                <div className="text-blue-700 font-medium mb-10">
-                                    {" "}
-                                    Upload Image
-                                </div>
+                                <input
+                                    name="profile_pic_url"
+                                    className="h-10 mt-5 px-3  w-96 border rounded"
+                                    placeholder="Change Image URL"
+                                    value={data.profile_pic_url}
+                                    onChange={handlechange}
+                                ></input>
                             </div>
-                            <div className="flex flex-col md:w-9/12">
-                                <div className="flex flex-col md:flex-row w-full ">
-                                    <div className="flex flex-col  w-full md:w-7/12 my-4 md:mr-10">
-                                        <label className="text-gray-500">
-                                            Full Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            placeholder="First Name"
-                                            className="rounded-md w-full  h-10 border-2 border-gray-300"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col  my-2 ">
-                                        <label className="text-gray-500">
-                                            Date Of Birth
-                                        </label>
-                                        <div className="flex flex-col md:flex-row md:space-x-2 space-y-3 lg:space-y-0">
-                                            <input
-                                                type="text"
-                                                placeholder="Date"
-                                                className="rounded-md md:w-20 h-10 border-2 border-gray-300"
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Month"
-                                                className="rounded-md md:w-20 h-10 border-2 border-gray-300"
-                                            />
-
-                                            <input
-                                                type="text"
-                                                placeholder="Year"
-                                                className="rounded-md md:w-20 h-10 border-2 border-gray-300"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className=" w-full my-4">
-                                    <label className="text-gray-500">
-                                        Profession
-                                    </label>
+                            <div>
+                                <h4 className="ml-6 mt-4">Name</h4>
+                                <div className="flex max-w-full">
                                     <input
                                         type="text"
-                                        placeholder="Profession"
-                                        className="rounded-md w-full h-10 border-2 border-gray-300"
-                                    />
+                                        name="first_name"
+                                        onChange={handlechange}
+                                        className="h-10 mt-5 px-3 w-32 border rounded mx-4"
+                                        value={data.first_name}
+                                        placeholder="First Name"
+                                    ></input>
+                                    <input
+                                        name="middle_name"
+                                        onChange={handlechange}
+                                        value={data.middle_name}
+                                        className="h-10 mt-5 px-3 w-32 border rounded mx-4"
+                                        placeholder="Middle Name"
+                                    ></input>
+                                    <input
+                                        name="last_name"
+                                        className="h-10 mt-5 px-3 w-32 border rounded mx-4"
+                                        value={data.last_name}
+                                        onChange={handlechange}
+                                        placeholder="Last Name"
+                                    ></input>
                                 </div>
+
+                                <h4 className="ml-6 mt-4">Date Of Birth</h4>
+                                <div className="flex max-w-full">
+                                    <input
+                                        name="birth_date"
+                                        className="h-10 mt-5 px-3  w-20 border rounded mx-4"
+                                        value={data.birth_date}
+                                        onChange={handlechange}
+                                        placeholder="Day"
+                                    ></input>
+                                    <input
+                                        name="birth_month"
+                                        className=" h-10 mt-5 px-3  w-20 border rounded mx-4"
+                                        value={data.birth_month}
+                                        onChange={handlechange}
+                                        placeholder="Month"
+                                    ></input>
+                                    <input
+                                        name="birth_year"
+                                        className="h-10 mt-5 px-3  w-20 border rounded mx-4"
+                                        value={data.birth_year}
+                                        onChange={handlechange}
+                                        placeholder="Year"
+                                    ></input>
+                                </div>
+
+                                {/* <h4 className="ml-6 mt-4">Education</h4>
+                            <div className="flex max-w-full"></div> */}
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div className="bg-white my-10 mx-5 p-7 ">
-                    <div className="font-medium mb-10">About</div>
-                    <div className="font-medium mb-10 text-gray-500 px-10">
-                        Bio
-                        <div className="font-medium mb-10 text-gray-500 ">
-                            <textarea
-                                className="border-2 border-gray-300 w-full rounded-md"
-                                rows={10}
-                            ></textarea>
+                    </div>
+
+                    <div className="bg-white rounded m-3 p-5">
+                        <h3 className="font-semibold w-full pr-12 ">
+                            CONTACT DETAILS
+                        </h3>
+
+                        <h4 className="ml-6 mt-4">Phone Number</h4>
+                        <div className="flex ">
+                            <input
+                                name="phone_number"
+                                className="h-10 mt-5 px-3  w-64 border rounded mx-4"
+                                value={data.phone_number}
+                                onChange={handlechange}
+                                placeholder="Contact Details"
+                            ></input>
+                        </div>
+                        <h4 className="ml-6 mt-4">Mail ID</h4>
+                        <div className="flex max-w-full">
+                            <input
+                                name="email"
+                                className="h-10 mt-5 px-3  w-64 border rounded mx-4"
+                                value={data.email}
+                                onChange={handlechange}
+                                placeholder="email adress"
+                            ></input>
+                        </div>
+                        <h4 className="ml-6 mt-4">Permanent Address</h4>
+                        <div className="flex max-w-full">
+                            <input
+                                name="hometown"
+                                className=" h-10 mt-5 px-3  w-64 border rounded mx-4"
+                                value={data.hometown}
+                                onChange={handlechange}
+                                placeholder="address"
+                            ></input>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div className="fixed h-16 bottom-0 bg-blue-900 w-full md:w-10/12 right-0 flex flex-row items-center justify-between px-4 ">
-                <div>
-                    <Button
-                        border="Solidify"
-                        theme="Primary"
-                        allow={true}
-                        onclick={() => {}}
-                        children="Reset All"
-                    ></Button>
-                </div>
-                <div>
-                    {" "}
-                    <Button
-                        border="Solidify"
-                        theme="Success"
-                        allow={true}
-                        onclick={() => {}}
-                        children="Save Changes"
-                    ></Button>
-                </div>
+                    <div className="flex justify-evenly">
+                    <Button type="reset" onclick={reset}>Discard Changes</Button>
+                        <Button type="submit">Save Changes</Button>
+                    </div>
+                </form>
             </div>
-        </div>
+        </>
     );
 };
 
 ProfilePage.defaultProps = {};
 
-export default React.memo(ProfilePage);
+export default memo(ProfilePage);

@@ -1,7 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { logout } from "../api/auth";
-import Button from "./Button/Button";
 interface props {}
 function DeleteInactiveIcon(props: any) {
   return (
@@ -52,7 +51,7 @@ const Header: React.FC<props> = () => {
   return (
     <>
       <div className="fixed flex items-center top-0 h-14 w-full bg-blue-900 flex-row">
-        <img
+        <img alt="Logo"
           className="h-10 w-20"
           src="https://designreset.com/cork/ltr/demo4/assets/img/logo.svg"
         ></img>
