@@ -9,7 +9,9 @@ return(<>
 
 </Header>
 <Sidebar />
+<div className="md:ml-64 mt-20">
   This is Dashboard Component
+  </div>
   </>
 );
 }
