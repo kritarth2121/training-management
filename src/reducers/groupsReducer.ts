@@ -21,6 +21,7 @@ export const groupReducer = (state = initialState, action: AnyAction) => {
         case GROUPS_QUERY:
             return { ...state, groupQuery: action.payload };
         case GROUPS_FETCH:
+            
             const groups = action.payload.groups.data as Group[];
             console.log(groups);
 
