@@ -13,7 +13,7 @@ import { groupStateSelector } from "./app.selectors";
 // }
 export const groupByIdSelector=createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.groupIds
+    (groupState)=>groupState.byID
 )
 
 // export const groupQueryMapSelector=(state:AppState)=>{
@@ -22,17 +22,26 @@ export const groupByIdSelector=createSelector(
 // }
 export const groupQueryMapSelector=createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.groupQueryMap
+    (groupState)=>groupState.queryMap
 )
 
-// export const groupQuerySelector =(state: AppState)=>{
-//     const groupState=groupStateSelector(state);
-//     return groupState.groupQuery;
-// }
+export const groupLoadingSelector =createSelector(
+    [groupStateSelector],
+    (groupState)=>groupState.loadingQuery
+)
+
 export const groupQuerySelector =createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.groupQuery
+    (groupState)=>groupState.query as string
 )
+export const groupLoading=createSelector([groupLoadingSelector,groupQuerySelector],
+    (loading :any,query:string)=> {
+        // eslint-disable-next-line
+        return loading[query]  ;
+
+    }
+    
+    );
 // export const groupSelector =(state: AppState)=>{
 //     const groupIds=state.groups.queryMap[state.groups.query] || [];
 //     const groupState=groupStateSelector(state);

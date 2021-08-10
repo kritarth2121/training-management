@@ -1,46 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { groupaction } from "../actions/group.actions";
-import { fetchGroups } from "../api/group";
+import React from "react";
+
 import Card from "../Components/Card";
 import Header from "../Components/Header";
 import Loading_icon from "../Components/Loading_icon.gif";
 import Sidebar from "../Components/Sidebar";
+import { fetchgroups } from "../midddleware/group.middleware";
+import { groupLoading, groupSelector } from "../selectors/groups.selector";
 import { useAppSelector } from "../store";
 interface props {}
 const Groups: React.FC<props> = () => {
-    const query = useAppSelector((state) => state.group.groupQuery);
-    const [loading, setloading] = useState(false);
-    const [offset] = useState(0);
-    const group: any = useAppSelector((state) => {
-        const groupIds =
-            state.group.groupQueryMap[state.group.groupQuery] || [];
-        const groups = groupIds.map((id: any) => state.group.groups[id]);
-        return groups;
-    });
-    console.log(group, "main");
-    useEffect(() => {
-        setloading(true);
-        setTimeout(() => {
-            setloading(false);
-        }, 2000);
-        fetchGroups({ status: "all-groups", query: query, offset: offset })
-            .then((response) => {
-                // dispatch({
-                //   type: "groups/query_completed",
-                //   payload: { groups: response, query },
-                // });
-                //setGroup(response.data.data);
-                console.log(response, "ytree");
-                groupaction.groupsfetch(response.data, query); // eslint-disable-line react-hooks/exhaustive-deps
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [query, offset]);
+    const loading=useAppSelector(groupLoading);
+
+    const group: any = useAppSelector(groupSelector );
+    // useEffect(() => {
+    //     //setloading(true);
+    //     // setTimeout(() => {
+    //     //     setloading(false);
+    //     // }, 2000);
+    //     fetchGroups({ status: "all-groups", query: query, offset: offset })
+    //         .then((response) => {
+    //             // dispatch({
+    //             //   type: "groups/query_completed",
+    //             //   payload: { groups: response, query },
+    //             // });
+    //             //setGroup(response.data.data);
+    //             console.log(response, "ytree");
+    //             groupaction.groupsfetch(response.data, query); // eslint-disable-line react-hooks/exhaustive-deps
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // }, [query, offset]);
     var value = "";
     const change = (e: any) => {
         value = e.currentTarget.value;
-        groupaction.groupquery(value);
+        fetchgroups({status:"all-groups" ,query:value});
         //dispatch({ type: "groups/query", payload: value });
     };
     console.log(group);

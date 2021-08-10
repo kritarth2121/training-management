@@ -7,11 +7,11 @@ export const fetchGroups =(data:GroupRequest)=>{
     return axios.get(url,{params:data,headers:{Authorization:token}})
     
   }
-  interface GroupRequest{
+  export interface GroupRequest{
     limit?:number;
   query?:string;
     offset?:number;
-  status?:"all-groups"|"favourite"|"archievedf"
+  status?:"all-groups"|"favourite"|"archieved"
   }
 
   export const fetchGroupsid =(data:{id:number})=>{

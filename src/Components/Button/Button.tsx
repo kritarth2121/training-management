@@ -21,21 +21,21 @@ const Button: React.FC<props> = ({
 
   let b = "";
 
-  if (theme == "Info") {
+  if (theme === "Info") {
     color = "blue";
-  } else if (theme == "Warning") {
+  } else if (theme === "Warning") {
     color = "yellow";
-  } else if (theme == "Success") {
+  } else if (theme === "Success") {
     color = "green";
-  } else if (theme == "Primary") {
+  } else if (theme === "Primary") {
     color = "purple";
   } else {
     color = "gray";
   }
 
-  if (border == "Solidify") {
+  if (border === "Solidify") {
     textcolor = "white ";
-  } else if (border == "Outline") {
+  } else if (border === "Outline") {
     textcolor = color;
     color = "white ";
     console.log(textcolor, color, theme);
