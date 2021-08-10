@@ -2,7 +2,6 @@ import { AnyAction } from "redux";
 import { GROUPS_FETCH, GROUPS_QUERY } from "../actions/action.constants";
 import { Group } from "../models/Group";
 export interface GroupState {
-    groups: Group[];
     groupQuery: string;
     loadingQuery:{[query:string]:boolean};
     groupIds: { [id: number]: Group };
@@ -10,7 +9,6 @@ export interface GroupState {
 }
 const initialState: GroupState = {
     loadingQuery:{},
-    groups: [],
     groupQuery: "",
     groupIds: {},
     groupQueryMap: {},
@@ -36,7 +34,6 @@ export const groupReducer = (state = initialState, action: AnyAction) => {
                     ...state.groupQueryMap,
                     [state.groupQuery]: groupIds,
                 },
-                groups: { ...state.groups, ...groupMap },
             };
         default:
             return state;

@@ -8,15 +8,15 @@ const Alert: React.FC<props> = ({ theme,text }) => {
     const [show,setshow]=useState(true);
   const [color, setcolor] = useState("");
   useEffect(()=>{
-  if (theme == "Info") {
+  if (theme === "Info") {
     setcolor("blue");
-  } else if (theme == "Warning") {
+  } else if (theme === "Warning") {
     setcolor("yellow");
-  } else if (theme == "Success") {
+  } else if (theme === "Success") {
     setcolor("green");
-  } else if (theme == "Primary") {
+  } else if (theme === "Primary") {
     setcolor("purple");
-  } else if (theme == "Error") {
+  } else if (theme === "Error") {
     setcolor("gray");
   }},[theme])
   console.log(color);
