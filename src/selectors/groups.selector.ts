@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { store } from "../store";
 import { groupStateSelector } from "./app.selectors";
 // export const groupQuerySelector =createSelector([groupStateSelector],
 //     (groupState)=>groupState.query);
@@ -13,7 +14,7 @@ import { groupStateSelector } from "./app.selectors";
 // }
 export const groupByIdSelector=createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.byID
+    (groupState:any)=>groupState.byID
 )
 
 // export const groupQueryMapSelector=(state:AppState)=>{
@@ -22,17 +23,17 @@ export const groupByIdSelector=createSelector(
 // }
 export const groupQueryMapSelector=createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.queryMap
+    (groupState:any)=>groupState.queryMap 
 )
 
 export const groupLoadingSelector =createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.loadingQuery
+    (groupState:any)=>groupState.loadingQuery
 )
 
 export const groupQuerySelector =createSelector(
     [groupStateSelector],
-    (groupState)=>groupState.query as string
+    (groupState:any)=>groupState.query 
 )
 export const groupLoading=createSelector([groupLoadingSelector,groupQuerySelector],
     (loading :any,query:string)=> {
@@ -49,8 +50,8 @@ export const groupLoading=createSelector([groupLoadingSelector,groupQuerySelecto
 //     return groups;
 // }
 export const groupSelector =createSelector([groupQuerySelector,groupByIdSelector,groupQueryMapSelector],(query,byId,queryMap)=>{
-    const groupIds=queryMap[query] || [];
-    const groups=groupIds.map((id)=>byId[id]);
+    const groupIds=queryMap[query.query] || [];
+    const groups=groupIds.map((id:any)=>byId[id]);
     return groups;
     })
 

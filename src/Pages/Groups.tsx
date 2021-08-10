@@ -11,7 +11,7 @@ interface props {}
 const Groups: React.FC<props> = () => {
     const loading=useAppSelector(groupLoading);
 
-    const group: any = useAppSelector(groupSelector );
+    const group:any = useAppSelector(groupSelector );
     // useEffect(() => {
     //     //setloading(true);
     //     // setTimeout(() => {
@@ -37,7 +37,7 @@ const Groups: React.FC<props> = () => {
         fetchgroups({status:"all-groups" ,query:value});
         //dispatch({ type: "groups/query", payload: value });
     };
-    console.log(group);
+    console.log(group,"aagya main page pe");
     return (
         <>
             <Header />

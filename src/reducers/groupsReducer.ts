@@ -22,15 +22,15 @@ export const groupReducer  = (state = initialState, action: AnyAction)=> {
         case GROUPS_QUERY:
             return { ...state, query: action.payload ,loadingQuery:{...state.loadingQuery , [action.payload.query] :action.payload.loading}};
         case GROUPS_FETCH:
-            const groups = action.payload.groups.data as Group[];
-            console.log(groups);
+            const groups = action.payload.groups.data.data as Group[];
+            console.log(groups,"hoega");
 
             const groupIds = getIds(groups);
             console.log(groups, groupIds);
             const groupMap = addMany(state,groups);
 
             return {
-                ...state,
+                ...groupMap,
                 queryMap:{ ...state.queryMap,
                     [action.payload.query] : groupIds
                 },
