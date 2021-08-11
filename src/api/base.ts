@@ -1,6 +1,6 @@
 
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 export const baseurl = "https://api-dev.domecompass.com";
 
 
@@ -15,9 +15,22 @@ return {...config, headers:{...config.headers, Authorization:token }}
 }
 )
 axios.interceptors.response.use(undefined,(error)=>{
-  if(error.response.data.code==9101){
+  if(error.response && error.response.data.code===9101){
     localStorage.removeItem(LS_LOGIN_TOKEN);
 
 window.location.href="/login";
   }
-})
+  return Promise.reject(error
+    
+    
+    
+    
+    );
+});
+
+export const get =<T> (url:string ,config?:AxiosRequestConfig)=>{
+  const source=axios.CancelToken.source();
+  const response:any=axios.get<T>(url,{...config,cancelToken:source.token})
+response.myCanceler=source.cancel;
+return response;
+    }

@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 import { baseurl, LS_LOGIN_TOKEN } from "./base";
 
-export const fetchGroups =(data:GroupRequest)=>{
+export const fetchGroups =(data:GroupRequest,toke?:CancelToken)=>{
     const url=baseurl+"/groups";
     const token=localStorage.getItem(LS_LOGIN_TOKEN);
-    return axios.get(url,{params:data,headers:{Authorization:token}})
+    return axios.get(url,{cancelToken:toke, params:data,headers:{Authorization:token}})
     
   }
   export interface GroupRequest{

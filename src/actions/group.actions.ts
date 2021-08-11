@@ -10,5 +10,5 @@ export const groupsfetch =( groups: Group[], query: string)=> ({type:GROUPS_FETC
 export const groupActions=bindActionCreators({
     groupsfetch:groupsfetch,
     groupquery:groupquery,
-    groupAction:groupAction
+    //groupAction:groupAction
 },store.dispatch)
