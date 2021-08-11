@@ -50,7 +50,8 @@ export const groupLoading=createSelector([groupLoadingSelector,groupQuerySelecto
 //     return groups;
 // }
 export const groupSelector =createSelector([groupQuerySelector,groupByIdSelector,groupQueryMapSelector],(query,byId,queryMap)=>{
-    const groupIds=queryMap[query.query] || [];
+    const groupIds=queryMap[query] || [];
+    console.log("Selector",groupIds);
     const groups=groupIds.map((id:any)=>byId[id]);
     return groups;
     })
