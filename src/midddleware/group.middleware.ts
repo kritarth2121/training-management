@@ -12,10 +12,10 @@ export const fetchgroups = (request: GroupRequest) => {
     const groupIDS = queryMap[query!];
     groupActions.groupAction(query!, !groupIDS);
     // const queryloading=groupQueryLoading(state);
-    //const loading = groupLoading(store.getState());
+    const loading = groupLoading(store.getState());
     // const tokenSource = axios.CancelToken.source();
     // cancelationTokenSources[query] = tokenSource;
-    groupActions.groupquery(query!);
+    //groupActions.groupquery(query!);
     if (groupIDS) {
         return;
     }
