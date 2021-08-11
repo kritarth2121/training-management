@@ -7,16 +7,16 @@ import { store } from "../store";
 export const fetchgroups = (request: GroupRequest) => {
     const query = request.query;
     //const state=store.getState();
-    const queryMap = groupQueryMapSelector(store.getState());
+    //const queryMap = groupQueryMapSelector(store.getState());
 
-    const groupIDS = queryMap[query!];
-    groupActions.groupAction(query!, !groupIDS);
+    //const groupIDS = queryMap[query!];
+    //groupActions.groupAction(query!, !groupIDS);
     // const queryloading=groupQueryLoading(state);
     const loading = groupLoading(store.getState());
     // const tokenSource = axios.CancelToken.source();
     // cancelationTokenSources[query] = tokenSource;
-    //groupActions.groupquery(query!);
-    if (groupIDS) {
+    groupActions.groupquery(query!);
+    if (loading) {
         return;
     }
     fetchGroups(request).then((groups) => {
